@@ -23,7 +23,6 @@ namespace OrgApi.Controllers
         public ActionResult GetEmployees()
         {
             var result = _context.Employees.ToList();
-
             return Ok(result); 
         }
 

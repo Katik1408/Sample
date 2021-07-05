@@ -24,7 +24,7 @@ namespace OrgApi.Controllers
         {
             var result = _context.Employees.ToList();
 
-            return Ok(result);
+            return Ok(result); 
         }
 
 

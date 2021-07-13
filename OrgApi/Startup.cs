@@ -25,6 +25,7 @@ namespace OrgApi
             // options.UseSqlServer(Configuration.GetConnectionString("keyname")));
 
             services.AddDbContext<OrganizationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("OrganizationDb")));
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,8 +40,13 @@ namespace OrgApi
 
             app.UseRouting();
 
+            app.UseSwagger();
             app.UseAuthorization();
-
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Organization API");
+                c.RoutePrefix = string.Empty;
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

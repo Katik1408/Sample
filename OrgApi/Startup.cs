@@ -26,6 +26,7 @@ namespace OrgApi
 
             services.AddDbContext<OrganizationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("OrganizationDb")));
             services.AddSwaggerGen();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +40,7 @@ namespace OrgApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(o => { o.AllowAnyHeader();o.AllowAnyMethod();o.AllowAnyOrigin(); });
             app.UseSwagger();
             app.UseAuthorization();
             app.UseSwaggerUI(c =>

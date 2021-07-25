@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrgApi.Models;
+using System;
 using System.Linq;
 
 namespace OrgApi.Controllers
@@ -29,7 +30,7 @@ namespace OrgApi.Controllers
         [HttpGet, Route("emp")]
         public ActionResult GetEmployee([FromQuery] int id)
         {
-            var result = _context.Employees.Where(w => w.Empid == id).Select(s => s.EmployeeName).ToList();
+            var result = _context.Employees.Where(w => w.Empid == id).ToList();
             return Ok(result);
         }
 
@@ -81,7 +82,7 @@ namespace OrgApi.Controllers
                 employee.Age = emp.Age;
                 employee.Place = emp.Place;
                 employee.EmployeeName = emp.EmployeeName;
-                employee.DeptId = emp.DeptId;
+                employee.DeptId =_context.Departments.Where(w=>w.Initials=="HR").Select(s=>s.Id).First();
                 employee.DateOfJoining = emp.DateOfJoining;
 
                 _context.Employees.Update(employee);
